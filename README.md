@@ -7,22 +7,26 @@ linux-project
 sudo groupadd devteam
 
 ```
+![alt text](image.png)
 - Create users
 ```bash
 sudo useradd -m -s /bin/bash akhil
 sudo useradd -m -s /bin/bash john
 sudo useradd -m -s /bin/bash priya
 ```
+![alt text](image-1.png)
 - Add users to the devteam group
 ```bash
 sudo usermod -aG devteam akhil
 sudo usermod -aG devteam john
 sudo usermod -aG devteam priya
 ```
+![alt text](image-2.png)
 - Verify
 ```bash
 groups akhil
 ```
+![alt text](image-3.png)
 ## 2. Manage permissions for project directories
 
 - Create project directory
@@ -30,6 +34,7 @@ groups akhil
 sudo mkdir -p /projects/app1
 
 ```
+
 - Set group ownership
 ```bash
 sudo chown -R :devteam /projects/app1
@@ -45,24 +50,29 @@ Set correct permissions
 ls -ld /projects/app1
 
 ```
+![alt text](image-4.png)
 ## 3. Install required packages (Git, Nginx, Java)
 - Update system
 ```bash
 sudo apt update -y
 ```
+![alt text](image-5.png)
 - Install Git
 ```bash
 sudo apt install git -y
 ```
+![alt text](image-6.png)
 - Install Nginx
 ```bash
 sudo apt install nginx -y
 sudo systemctl enable --now nginx
 ```
+![alt text](image-7.png)
 - Install Java
 ```bash 
 sudo apt install openjdk-17-jdk -y
 ```
+![alt text](image-8.png)
 - Verify installations
 ```bash
 git --version
@@ -74,23 +84,28 @@ java -version
 ```bash
 free -m
 ```
+![alt text](image-9.png)
 - CPU
 ```bash
 lscpu
 ```
+![alt text](image-10.png)
 - Disk
 ```bash
 df -h
 ```
+![alt text](image-11.png)
 - OS Details
 ```bash
 uname -a
 cat /etc/os-release
 ```
+![alt text](image-12.png)
 - Processes
 ```bash
 top
 ```
+![alt text](image-13.png)
 ## Level 2 – Intermediate (Daily DevOps Tasks)
 ##  Automate backups with Cron
 - Create a backup script
@@ -103,12 +118,14 @@ sudo nano /usr/local/bin/backup.sh
 - backup.sh
 #!/bin/bash
 tar -czf /backups/app1_$(date +%F).tar.gz /projects/app1
+![alt text](image-14.png)
 
 
 - Make script executable:
 ```bash
 sudo chmod +x /usr/local/bin/backup.sh
 ```
+![alt text](image-17.png)
 
 - Create a cron job (daily backup at 2 AM)
 sudo crontab -e
@@ -118,6 +135,7 @@ sudo crontab -e
 ```bash
 0 2 * * * /usr/local/bin/backup.sh
 ```
+![alt text](image-18.png)
 ## Create essential shell scripts
 - Log cleanup script
 ```bash
@@ -127,6 +145,7 @@ sudo nano /usr/local/bin/log_cleanup.sh
 #!/bin/bash
 find /var/log -type f -name "*.log" -mtime +7 -exec rm {} \;
 ```
+![alt text](image-19.png)
 - Service restart script
 
 ```bash
@@ -136,6 +155,7 @@ sudo nano /usr/local/bin/restart_nginx.sh
 #!/bin/bash
 systemctl restart nginx
 ```
+![alt text](image-20.png)
 - Health check script
 ```bash
 sudo nano /usr/local/bin/health_check.sh
