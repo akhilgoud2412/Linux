@@ -165,15 +165,19 @@ sudo nano /usr/local/bin/health_check.sh
 curl -I http://localhost
 systemctl status nginx
 ```
+![alt text](image-21.png)
 - Make all scripts executable
 ```bash
 sudo chmod +x /usr/local/bin/*.sh
 ```
+![alt text](image-22.png)
 ## Manage logs under /var/log
 - Check log size:
 ```bash
 du -sh /var/log/*
 ```
+
+![alt text](image-23.png)
 - View logs
 ```bash
 tail -n 100 /var/log/syslog
@@ -183,6 +187,7 @@ tail -f /var/log/nginx/access.log
 ```bash
 sudo find /var/log -type f -mtime +7 -delete
 ```
+![alt text](image-24.png)
 ## Monitor system performance & troubleshoot services
 - Performance monitoring
 ```bash
@@ -192,11 +197,18 @@ free -m
 vmstat 1 5
 iostat
 ```
+![alt text](image-26.png)
+![alt text](image-27.png)
+![alt text](image-28.png)
+![alt text](image-29.png)
 - Troubleshooting services
 ```bash
 systemctl status nginx
 journalctl -u nginx --since today
 ```
+![alt text](image-30.png)
+![alt text](image-31.png)
+
 ## Level 3 – Advanced (Production-Ready Linux Admin) – Clean Steps
 ## Create a custom systemd service
 - Create service file
@@ -218,12 +230,14 @@ Group=devteam
 [Install]
 WantedBy=multi-user.target
 ```
+![alt text](image-32.png)
 - Enable & start service
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable --now myapp.service
 systemctl status myapp.service
 ```
+![alt text](image-33.png)
 ## SSH Hardening
 - Edit SSH config
 ```bash
@@ -235,6 +249,7 @@ PermitRootLogin no
 PasswordAuthentication no
 PubkeyAuthentication yes
 ```
+![alt text](image-34.png)
 - Restart SSH
 ```bash
 sudo systemctl restart sshd
@@ -244,6 +259,7 @@ sudo systemctl restart sshd
 ```bash
 lsblk
 ```
+![alt text](image-35.png)
 - Create physical volume
 ```bash
 sudo pvcreate /dev/xvdf
@@ -266,6 +282,7 @@ sudo mount /dev/datavg/applv /data
 ```bash
 echo "/dev/datavg/applv /data ext4 defaults 0 0" | sudo tee -a /etc/fstab
 ```
+![alt text](image-36.png)
 ## Configure firewall rules
 - Using UFW
 ```bash
@@ -274,6 +291,7 @@ sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw enable
 ```
+![alt text](image-37.png)
 - Using firewalld
 ```bash
 sudo firewall-cmd --add-service=http --permanent
@@ -294,7 +312,9 @@ sudo nano /etc/logrotate.d/myapp
     missingok
     notifempty
 ```
+![alt text](image-38.png)
 - Test
 ```bash
 sudo logrotate -d /etc/logrotate.d/myapp
 ```
+![alt text](image-39.png)
